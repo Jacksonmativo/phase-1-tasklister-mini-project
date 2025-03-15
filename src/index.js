@@ -1,42 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("create-task-form");
   if (!form) {
-      console.error("Form element not found!");
+      console.error("Form not found! Test environment may be missing elements.");
       return;
   }
 
   const taskList = document.getElementById("tasks");
+  if (!taskList) {
+      console.error("Task list not found!");
+      return;
+  }
 
   form.addEventListener("submit", function(event) {
       event.preventDefault();
 
       const taskInput = document.getElementById("new-task-description");
       if (!taskInput) {
-          console.error("Task input element not found!");
+          console.error("Task input not found!");
           return;
       }
-
-      const priorityInput = document.getElementById("task-priority");
 
       if (taskInput.value.trim() === "") return;
 
       const taskItem = document.createElement("li");
       taskItem.textContent = taskInput.value;
-
-      // Handle priority if it exists
-      if (priorityInput) {
-          switch (priorityInput.value) {
-              case "high":
-                  taskItem.style.color = "red";
-                  break;
-              case "medium":
-                  taskItem.style.color = "orange";
-                  break;
-              case "low":
-                  taskItem.style.color = "green";
-                  break;
-          }
-      }
 
       // Add delete button
       const deleteBtn = document.createElement("button");
@@ -48,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       taskItem.appendChild(deleteBtn);
       taskList.appendChild(taskItem);
-
-      taskInput.value = ""; // Clear input field
+      taskInput.value = ""; // Clear input
   });
 });
